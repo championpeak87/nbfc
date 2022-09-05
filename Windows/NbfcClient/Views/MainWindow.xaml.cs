@@ -12,7 +12,7 @@ namespace NbfcClient.Windows
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         #region Constants
 
@@ -37,30 +37,39 @@ namespace NbfcClient.Windows
             ProcessCommandLineArgs();
             InitializeComponent();
 
-            Application.Current.SessionEnding += Current_SessionEnding;
-
-            this.saveSizeTimer = new DispatcherTimer();
-            this.saveSizeTimer.Interval = TimeSpan.FromSeconds(SaveWindowSizeDelay);
-            this.saveSizeTimer.Tick += saveSizeTimer_Tick;
-
-            this.Height = SettingsService.Settings.WindowHeight;
-            this.Width = SettingsService.Settings.WindowWidth;
-            this.SizeChanged += MainWindow_SizeChanged;
-
-            var wbcd = new DateTime(DateTime.Now.Year, 5, 28);
-
-            if ((DateTime.Today > wbcd.Subtract(new TimeSpan(14, 0, 0, 0)))
-                && (DateTime.Today <= wbcd))
+            Loaded += (sender, args) =>
             {
-                this.wbcd.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                this.wbcd.Visibility = Visibility.Collapsed;
-            }
+                Wpf.Ui.Appearance.Watcher.Watch(
+                  this,                                  // Window class
+                  Wpf.Ui.Appearance.BackgroundType.Mica, // Background type
+                  true                                   // Whether to change accents automatically
+                );
+            };
 
-            Messenger.Default.Register<OpenSelectConfigDialogMessage>(this, ShowSelectConfigDialog);
-            Messenger.Default.Register<OpenSettingsDialogMessage>(this, ShowSettingsDialog);
+            //Application.Current.SessionEnding += Current_SessionEnding;
+
+            //this.saveSizeTimer = new DispatcherTimer();
+            //this.saveSizeTimer.Interval = TimeSpan.FromSeconds(SaveWindowSizeDelay);
+            //this.saveSizeTimer.Tick += saveSizeTimer_Tick;
+
+            //this.Height = SettingsService.Settings.WindowHeight;
+            //this.Width = SettingsService.Settings.WindowWidth;
+            //this.SizeChanged += MainWindow_SizeChanged;
+
+            //var wbcd = new DateTime(DateTime.Now.Year, 5, 28);
+
+            //if ((DateTime.Today > wbcd.Subtract(new TimeSpan(14, 0, 0, 0)))
+            //    && (DateTime.Today <= wbcd))
+            //{
+            //    this.wbcd.Visibility = Visibility.Visible;
+            //}
+            //else
+            //{
+            //    this.wbcd.Visibility = Visibility.Collapsed;
+            //}
+
+            //Messenger.Default.Register<OpenSelectConfigDialogMessage>(this, ShowSelectConfigDialog);
+            //Messenger.Default.Register<OpenSettingsDialogMessage>(this, ShowSettingsDialog);
         }
 
         #endregion
