@@ -5,10 +5,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:vm="clr-namespace:NbfcClient.ViewModels"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     
     mc:Ignorable="d"  
-    Height="140" 
-    Background="White"
+    Height="140"
     d:DesignHeight="140" 
     d:DesignWidth="343"             
     d:DataContext="{d:DesignData Source=../DesignData/FanControllerViewModelData.xaml}">
@@ -57,13 +57,13 @@
             </Label>
             
             <ProgressBar 
-                Value="{Binding CurrentFanSpeed}" 
+                Value="{Binding CurrentFanSpeed, Mode=OneWay}" 
                 Height="6"
                 Margin="10,79,65,0" 
                 VerticalAlignment="Top" />
             
             <Label 
-                Content="{Binding CurrentFanSpeed}"
+                Content="{Binding CurrentFanSpeed, Mode=OneWay}"
                 ContentStringFormat="Current fan speed:  {0:0.0}%"
                 FontWeight="Normal"
                 Margin="6,85,0,0"

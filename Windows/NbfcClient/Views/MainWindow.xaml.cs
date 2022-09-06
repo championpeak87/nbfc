@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Threading;
+using Wpf.Ui.Common;
 using SettingsService = StagWare.Settings.SettingsService<NbfcClient.AppSettings>;
 
 namespace NbfcClient.Windows
@@ -46,30 +47,30 @@ namespace NbfcClient.Windows
                 );
             };
 
-            //Application.Current.SessionEnding += Current_SessionEnding;
+            Application.Current.SessionEnding += Current_SessionEnding;
 
-            //this.saveSizeTimer = new DispatcherTimer();
-            //this.saveSizeTimer.Interval = TimeSpan.FromSeconds(SaveWindowSizeDelay);
-            //this.saveSizeTimer.Tick += saveSizeTimer_Tick;
+            this.saveSizeTimer = new DispatcherTimer();
+            this.saveSizeTimer.Interval = TimeSpan.FromSeconds(SaveWindowSizeDelay);
+            this.saveSizeTimer.Tick += saveSizeTimer_Tick;
 
-            //this.Height = SettingsService.Settings.WindowHeight;
-            //this.Width = SettingsService.Settings.WindowWidth;
-            //this.SizeChanged += MainWindow_SizeChanged;
+            this.Height = SettingsService.Settings.WindowHeight;
+            this.Width = SettingsService.Settings.WindowWidth;
+            this.SizeChanged += MainWindow_SizeChanged;
 
-            //var wbcd = new DateTime(DateTime.Now.Year, 5, 28);
+            var wbcd = new DateTime(DateTime.Now.Year, 5, 28);
 
-            //if ((DateTime.Today > wbcd.Subtract(new TimeSpan(14, 0, 0, 0)))
-            //    && (DateTime.Today <= wbcd))
-            //{
-            //    this.wbcd.Visibility = Visibility.Visible;
-            //}
-            //else
-            //{
-            //    this.wbcd.Visibility = Visibility.Collapsed;
-            //}
+            if ((DateTime.Today > wbcd.Subtract(new TimeSpan(14, 0, 0, 0)))
+                && (DateTime.Today <= wbcd))
+            {
+                this.wbcd.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.wbcd.Visibility = Visibility.Collapsed;
+            }
 
-            //Messenger.Default.Register<OpenSelectConfigDialogMessage>(this, ShowSelectConfigDialog);
-            //Messenger.Default.Register<OpenSettingsDialogMessage>(this, ShowSettingsDialog);
+            Messenger.Default.Register<OpenSelectConfigDialogMessage>(this, ShowSelectConfigDialog);
+            Messenger.Default.Register<OpenSettingsDialogMessage>(this, ShowSettingsDialog);
         }
 
         #endregion
@@ -194,5 +195,11 @@ namespace NbfcClient.Windows
         #endregion
 
         #endregion
+
+        private void CloseCommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            close = true;
+            Close();
+        }
     }
 }

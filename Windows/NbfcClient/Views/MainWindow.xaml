@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"             
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  
-    xmlns:tb="http://www.hardcodet.net/taskbar"
     xmlns:vm="clr-namespace:NbfcClient.ViewModels"
     xmlns:uc="clr-namespace:NbfcClient.UserControls"        
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
@@ -21,14 +20,25 @@
     Icon="/NoteBookFanControl;component/fan.ico"
     WindowStartupLocation="CenterScreen" 
     StateChanged="window_StateChanged" 
-    Closing="Window_Closing">
+    Closing="Window_Closing"
+    d:DataContext="{d:DesignData Source=../DesignData/MainWindowViewModelData.xaml}"
+    DataContext="{Binding Main, Source={StaticResource ViewModelLocator}}">
+
+    <Window.CommandBindings>
+        <CommandBinding Command="Close" Executed="CloseCommandBinding_Executed"/>
+    </Window.CommandBindings>
+
+    <Window.InputBindings>
+        <KeyBinding Modifiers="Ctrl" Key="C" Command="Close"/>
+    </Window.InputBindings>
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-       
+
         <!--Titlebar-->
         <ui:TitleBar
             Title="Notebook Fan Control"
@@ -43,44 +53,41 @@
                     TooltipText="Notebook Fan Control">
                     <ui:NotifyIcon.Menu>
                         <ContextMenu>
-                            <MenuItem Header="Close" Tag="home" />
+                            <MenuItem Header="Close" Command="Close" Click="close_Click" InputGestureText="Ctrl+C">
+                                <MenuItem.Icon>
+                                    <ui:SymbolIcon Filled="True" Symbol="ArrowExit20" />
+                                </MenuItem.Icon>
+                            </MenuItem>
                         </ContextMenu>
                     </ui:NotifyIcon.Menu>
                 </ui:NotifyIcon>
             </ui:TitleBar.Tray>
         </ui:TitleBar>
 
-        <Border 
-		    BorderThickness="0,1"
-            Grid.Row="1"
-		    VerticalAlignment="Stretch" 
-            Background="{DynamicResource ControlFillColorDefaultBrush}"
-            CornerRadius="8,8,8,8"
-            Padding="5,5,5,5">
-            <Grid>
-                <!--Config selector-->
-                <DockPanel Margin="0,0,50,0" Height="Auto" VerticalAlignment="Top">
+        <!--Config selector-->
+        <DockPanel Margin="0,0,50,0" Height="Auto" VerticalAlignment="Top" Grid.Row="1">
 
-                    <TextBlock 
+            <TextBlock 
                 Text="Selected config:" 
                 DockPanel.Dock="Left"
                 VerticalAlignment="Center" 
                 Margin="10,0,6,0"/>
 
-                    <TextBox 
-                Text="PLACEHOLDER" 
+            <TextBox 
+                Text="{Binding SelectedConfig, Mode=OneWay}" 
                 Height="Auto"
                 TextWrapping="Wrap" 
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center" 
                 IsReadOnly="True" 
                 VerticalContentAlignment="Center" Cursor="IBeam" />
-                </DockPanel>
+        </DockPanel>
 
-                <Button 
+        <Button 
             Command="{Binding SelectConfigCommand}"
             FontFamily="Segoe MDL2 Assets" Content="&#xE104;"
             VerticalAlignment="Top"
+            Grid.Row="1"
             Width="30"        
             Height="30"
             ToolTip="Select a config" 
@@ -88,10 +95,19 @@
             Padding="2"
             HorizontalAlignment="Right"/>
 
+        <Border 
+		    BorderThickness="0,1"
+            Grid.Row="2"
+		    VerticalAlignment="Stretch" 
+            Background="{DynamicResource ControlFillColorDefaultBrush}"
+            CornerRadius="8,8,8,8"
+            Padding="5,5,5,5"
+            Margin="0,10,0,0">
+            <Grid>  
                 <!--Version-->
                 <Label 
             Content="{Binding Version}" 
-            Margin="0,43,10,0" 
+            Margin="0,10,10,0" 
             VerticalAlignment="Top" 
             HorizontalAlignment="Right" 
             FontFamily="Segoe UI Light" />
@@ -99,7 +115,7 @@
                 <!--World Blood Cancer Day Link-->
                 <TextBlock 
             x:Name="wbcd"
-            Margin="0,66,14,0" 
+            Margin="0,26,14,0" 
             VerticalAlignment="Top" 
             HorizontalAlignment="Right" 
             Foreground="Red" 
@@ -120,7 +136,7 @@
                 <TextBlock 
             Text="Fan control service status:"
             HorizontalAlignment="Left" 
-            Margin="18,48,0,0"
+            Margin="18,10,0,0"
             VerticalAlignment="Top"
             FontWeight="Medium" Grid.Row="1"/>
 
@@ -128,7 +144,7 @@
             Orientation="Horizontal"
             HorizontalAlignment="Stretch" 
             VerticalAlignment="Top" 
-            Margin="26,69,48,0" 
+            Margin="26,25,48,0" 
             Height="Auto" Grid.Row="1">
 
                     <RadioButton 
@@ -156,7 +172,7 @@
                 <StackPanel 
             Orientation="Horizontal" 
             Height="18" 
-            Margin="18,98,48,0" 
+            Margin="18,58,48,0" 
             VerticalAlignment="Top" Grid.Row="1">
 
                     <TextBlock 
@@ -218,29 +234,8 @@
             </Hyperlink>
                 </TextBlock>
             </Grid>
+
         </Border>
 
-        <!--<Rectangle
-            Fill="White" Grid.Row="1"
-            Margin="0,38,0,0"/>-->
-
-
-
-        <!--Notify icon-->
-        <!--<uc:BindableTaskbarIcon
-            x:Name="notifyIcon" 
-            IconSource="/NoteBookFanControl;component/fan.ico"
-            IconBitmapSource="{Binding TrayIcon}"
-            TrayLeftMouseDown="notifyIcon_TrayLeftMouseDown">
-
-            <uc:BindableTaskbarIcon.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Close"  Click="close_Click"/>
-                </ContextMenu>
-            </uc:BindableTaskbarIcon.ContextMenu>
-            <uc:BindableTaskbarIcon.TrayToolTip>
-                <uc:TrayToolTip />
-            </uc:BindableTaskbarIcon.TrayToolTip>
-        </uc:BindableTaskbarIcon>-->
     </Grid>
 </ui:UiWindow>

@@ -7,7 +7,7 @@ namespace NbfcClient.Windows
     /// <summary>
     /// Interaction logic for SelectConfigWindow.xaml
     /// </summary>
-    public partial class SelectConfigWindow : Window
+    public partial class SelectConfigWindow
     {
         public SelectConfigWindow()
         {
