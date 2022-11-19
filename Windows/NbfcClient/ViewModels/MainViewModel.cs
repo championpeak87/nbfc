@@ -5,6 +5,7 @@ using NbfcClient.Messages;
 using NbfcClient.NbfcService;
 using NbfcClient.Services;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Media.Imaging;
@@ -12,19 +13,19 @@ using SettingsService = StagWare.Settings.SettingsService<NbfcClient.AppSettings
 
 namespace NbfcClient.ViewModels
 {
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase, INotifyPropertyChanged
     {
         #region Private Fields
 
         private readonly IFanControlClient client;
-        private readonly TrayIconRenderer renderer;
-        private BitmapSource trayIcon;
 
         private string version;
         private string selectedConfig;
+        private string serviceStateString;
         private bool isServiceReadOnly;
         private bool isServiceDisabled;
         private bool isServiceEnabled;
+        private int serviceState;
         private int temperature;
         private string temperatureSourceName;
         private ObservableCollection<FanControllerViewModel> fanControllers;
@@ -39,12 +40,14 @@ namespace NbfcClient.ViewModels
         public MainViewModel(IFanControlClient client)
         {
             this.FanControllers = new ObservableCollection<FanControllerViewModel>();
-            this.renderer = new TrayIconRenderer();
-            this.renderer.Color = SettingsService.Settings.TrayIconForegroundColor;
             this.client = client;
             this.client.FanControlStatusChanged += Client_FanControlStatusChanged;
             Messenger.Default.Register<ReloadFanControlInfoMessage>(this, Refresh);
             Refresh(true);
+
+            IsServiceReadOnly = client.FanControlInfo.ReadOnly;
+            IsServiceEnabled = client.FanControlInfo.Enabled;
+            IsServiceDisabled = !client.FanControlInfo.Enabled;
         }
 
         #endregion
@@ -64,6 +67,78 @@ namespace NbfcClient.ViewModels
             }
         }
 
+        public int ServiceState
+        {
+            get
+            {
+                if (this.IsServiceDisabled)
+                    return 0;
+                else if (this.IsServiceReadOnly)
+                    return 1;
+                else if (this.IsServiceEnabled)
+                    return 2;
+                else
+                    return -1;
+            }
+            set
+            {
+                this.serviceState = value;
+                if (value == 0)
+                {
+                    IsServiceDisabled = true;
+                    IsServiceEnabled = false;
+                    IsServiceReadOnly = false;
+
+                    ServiceStateString = "DISABLED";
+                }
+                else if (value == 1)
+                {
+                    IsServiceDisabled = false;
+                    IsServiceEnabled = false;
+                    IsServiceReadOnly = true;
+
+                    ServiceStateString = "READ-ONLY";
+                }
+                else if (value == 2)
+                {
+                    IsServiceDisabled = false;
+                    IsServiceEnabled = true;
+                    IsServiceReadOnly = false;
+
+                    ServiceStateString = "ENABLED";
+                }
+                else
+                {
+                    IsServiceDisabled = false;
+                    IsServiceEnabled = false;
+                    IsServiceReadOnly = false;
+
+                    ServiceStateString = "UNKNOWN";
+                }
+            }
+        }
+
+        public string ServiceStateString
+        {
+            get
+            {
+                if (this.serviceStateString == null)
+                {
+                    if (this.IsServiceDisabled)
+                        this.serviceStateString = "DISABLED";
+                    else if (this.IsServiceReadOnly)
+                        this.serviceStateString = "READ-ONLY";
+                    else if (this.IsServiceEnabled)
+                        this.serviceStateString = "ENABLED";
+                    else
+                        this.serviceStateString = "UNKNOWN";
+                }
+
+                return this.serviceStateString;
+            }
+            set { this.serviceStateString = value; OnPropertyChanged("ServiceStateString"); }
+        }
+
         public string SelectedConfig
         {
             get { return this.selectedConfig; }
@@ -78,6 +153,7 @@ namespace NbfcClient.ViewModels
                 if (Set(ref this.isServiceDisabled, value) && value)
                 {
                     client.Stop();
+                    this.serviceState = 0;
                     IsServiceReadOnly = false;
                     IsServiceEnabled = false;
                     Refresh(true);
@@ -93,6 +169,7 @@ namespace NbfcClient.ViewModels
                 if (Set(ref this.isServiceReadOnly, value) && value)
                 {
                     client.Start(true);
+                    this.serviceState = 1;
                     IsServiceDisabled = false;
                     IsServiceEnabled = false;
                     Refresh(true);
@@ -108,6 +185,7 @@ namespace NbfcClient.ViewModels
                 if (Set(ref this.isServiceEnabled, value) && value)
                 {
                     client.Start(false);
+                    this.serviceState = 2;
                     IsServiceDisabled = false;
                     IsServiceReadOnly = false;
                     Refresh(true);
@@ -133,11 +211,7 @@ namespace NbfcClient.ViewModels
             private set { this.Set(ref this.fanControllers, value); }
         }
 
-        public BitmapSource TrayIcon
-        {
-            get { return this.trayIcon; }
-            private set { this.Set(ref this.trayIcon, value); }
-        }
+
 
         #endregion
 
@@ -184,14 +258,7 @@ namespace NbfcClient.ViewModels
                 ? client.GetFanControlInfo()
                 : client.FanControlInfo;
 
-            UpdateNotifyIcon(info.Temperature);
             UpdateProperties(info);
-        }
-
-        private void UpdateNotifyIcon(int temperature)
-        {
-            this.renderer.Color = SettingsService.Settings.TrayIconForegroundColor;
-            TrayIcon = this.renderer.RenderIcon(temperature.ToString());
         }
 
         private void UpdateProperties(FanControlInfo info)
@@ -252,6 +319,15 @@ namespace NbfcClient.ViewModels
         {
             Refresh(false);
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+
 
         #endregion
     }

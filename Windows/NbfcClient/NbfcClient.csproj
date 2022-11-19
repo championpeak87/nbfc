@@ -134,7 +134,6 @@
     <Compile Include="Services\FanControlStatusChangedEventArgs.cs" />
     <Compile Include="Services\IFanControlClient.cs" />
     <Compile Include="Messages\OpenSelectConfigDialogMessage.cs" />
-    <Compile Include="TrayIconRenderer.cs" />
     <Compile Include="UserControls\BindableTaskbarIcon.cs" />
     <Compile Include="UserControls\FanController.xaml.cs">
       <DependentUpon>FanController.xaml</DependentUpon>
@@ -167,7 +166,16 @@
     <Compile Include="ViewModels\SelectConfigViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="Views\AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ComboBoxItemTemplateSelector.cs" />
+    <Compile Include="Views\ConfigPage.xaml.cs">
+      <DependentUpon>ConfigPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SelectConfigWindow.xaml.cs">
       <DependentUpon>SelectConfigWindow.xaml</DependentUpon>
     </Compile>
@@ -175,6 +183,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
@@ -191,6 +202,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AboutPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ConfigPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -204,6 +227,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\SelectConfigWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
