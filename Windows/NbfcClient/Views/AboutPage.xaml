@@ -13,12 +13,35 @@
     d:DataContext="{d:DesignData Source=../DesignData/MainWindowViewModelData.xaml}"
     DataContext="{Binding Main, Source={StaticResource ViewModelLocator}}">
 
-    <DockPanel
-        VerticalAlignment="Top">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition
+                Width="450" />
+            <ColumnDefinition
+                Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.Style>
+            <Style>
+                <Style.Triggers>
+                    <Trigger
+                        Property="{Binding
+                Path=Width,
+                RelativeSource={RelativeSource Self},
+                Converter={StaticResource isLessThanConverter},
+                ConverterParameter=750}"
+                        Value="True" />
+                </Style.Triggers>
+                <Style.Setters>
+                    <Setter Property="Grid.Width" Value="50"></Setter>
+                </Style.Setters>
+            </Style>
+        </Grid.Style>
+
         <StackPanel
-            DockPanel.Dock="Left"
             Orientation="Vertical"
-            Width="450">
+            Width="450"
+            Grid.Column="0">
             <ui:Card
                 Padding="50"
                 VerticalAlignment="Top">
@@ -62,7 +85,8 @@
             </ui:Card>
         </StackPanel>
         <StackPanel
-            Orientation="Vertical">
+            Orientation="Vertical"
+            Grid.Column="1">
 
             <ui:CardAction
                 Icon="Money24"
@@ -104,5 +128,5 @@
                 </StackPanel>
             </ui:CardAction>
         </StackPanel>
-    </DockPanel>
+    </Grid>
 </ui:UiPage>

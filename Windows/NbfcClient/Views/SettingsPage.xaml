@@ -78,5 +78,31 @@
             <ui:ToggleSwitch
                 IsChecked="{Binding Autostart}"/>
         </ui:CardControl>
+        <Separator />
+        <ui:CardControl
+            Margin="0,8,0,0"
+            Icon="Settings24"
+            DataContext="{Binding SelectConfig, Source={StaticResource ViewModelLocator}}">
+            <ui:CardControl.Header>
+                <StackPanel
+                    Grid.Column="0"
+                    VerticalAlignment="Center">
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="Medium"
+                        Text="Configuration profile" />
+                    <TextBlock
+                        FontSize="12"
+                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                        Text="Selected cofiguration profile for fan control" />
+                </StackPanel>
+            </ui:CardControl.Header>
+            <ComboBox
+                ItemsSource="{Binding AvailableConfigs}"
+                SelectedItem="{Binding SelectedConfig}"
+                IsEnabled="{Binding IsBusy, Converter={StaticResource BoolToInverse}}"
+                MinWidth="250">
+            </ComboBox>
+        </ui:CardControl>
     </StackPanel>
 </ui:UiPage>
