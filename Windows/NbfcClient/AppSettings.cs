@@ -15,11 +15,5 @@ namespace NbfcClient
 
         [DefaultValue(false)]
         public bool CloseToTray { get; set; }
-
-        [DefaultValue(350.0)]
-        public double WindowHeight { get; set; }
-
-        [DefaultValue(430.0)]
-        public double WindowWidth { get; set; }
     }
 }

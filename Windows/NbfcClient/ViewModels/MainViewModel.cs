@@ -196,7 +196,7 @@ namespace NbfcClient.ViewModels
         public int Temperature
         {
             get { return this.temperature; }
-            private set { this.Set(ref this.temperature, value); }
+            private set { this.Set(ref this.temperature, value); OnPropertyChanged("Temperature"); }
         }
 
         public string TemperatureSourceName

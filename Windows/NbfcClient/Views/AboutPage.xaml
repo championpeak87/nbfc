@@ -13,120 +13,95 @@
     d:DataContext="{d:DesignData Source=../DesignData/MainWindowViewModelData.xaml}"
     DataContext="{Binding Main, Source={StaticResource ViewModelLocator}}">
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition
-                Width="450" />
-            <ColumnDefinition
-                Width="*" />
-        </Grid.ColumnDefinitions>
-
-        <Grid.Style>
-            <Style>
-                <Style.Triggers>
-                    <Trigger
-                        Property="{Binding
-                Path=Width,
-                RelativeSource={RelativeSource Self},
-                Converter={StaticResource isLessThanConverter},
-                ConverterParameter=750}"
-                        Value="True" />
-                </Style.Triggers>
-                <Style.Setters>
-                    <Setter Property="Grid.Width" Value="50"></Setter>
-                </Style.Setters>
-            </Style>
-        </Grid.Style>
-
-        <StackPanel
-            Orientation="Vertical"
-            Width="450"
-            Grid.Column="0">
-            <ui:Card
-                Padding="50"
-                VerticalAlignment="Top">
-                <StackPanel
-                    Orientation="Vertical">
-                    <Image
-                        Source="/NoteBookFanControl;component/fan.ico"
-                        Height="100" />
-                    <TextBlock
-                        FontSize="32"
-                        FontWeight="ExtraBold"
-                        Text="Notebook Fan Control"
-                        HorizontalAlignment="Center" />
+    <ScrollViewer>
+        <WrapPanel
+            Orientation="Horizontal"
+            HorizontalAlignment="Center">
+            <StackPanel
+                Orientation="Vertical"
+                HorizontalAlignment="Center"
+                Margin="10,0,10,0">
+                <ui:Card
+                    Padding="50"
+                    VerticalAlignment="Top">
                     <StackPanel
-                        Orientation="Horizontal">
+                        Orientation="Vertical">
+                        <Image
+                            Source="/NoteBookFanControl;component/fan.ico"
+                            Height="100" />
                         <TextBlock
-                            Text="Version: "
+                            FontSize="32"
+                            FontWeight="ExtraBold"
+                            Text="Notebook Fan Control"
                             HorizontalAlignment="Center" />
+                        <StackPanel
+                            Orientation="Horizontal">
+                            <TextBlock
+                                Text="Version: "
+                                HorizontalAlignment="Center" />
+                            <TextBlock
+                                Text="{Binding Version}"
+                                HorizontalAlignment="Center" />
+                        </StackPanel>
                         <TextBlock
-                            Text="{Binding Version}"
-                            HorizontalAlignment="Center" />
+                            MaxWidth="370"
+                            Text="NBFC is a cross-platform fan control service for notebooks. It comes with a powerful configuration system, which allows to adjust it to many different notebook models."
+                            Margin="0,15,0,0"
+                            FontSize="10"
+                            HorizontalAlignment="Left"
+                            TextAlignment="Justify"
+                            TextWrapping="Wrap" />
                     </StackPanel>
-                    <TextBlock
-                        MaxWidth="370"
-                        Text="NBFC is a cross-platform fan control service for notebooks. It comes with a powerful configuration system, which allows to adjust it to many different notebook models."
-                        Margin="0,15,0,0"
-                        FontSize="10"
-                        HorizontalAlignment="Left"
-                        TextAlignment="Justify"
-                        TextWrapping="Wrap" />
-                </StackPanel>
 
-            </ui:Card>
-            <ui:Card
-                Margin="0,10,0,0"
-                Padding="20"
-                VerticalAlignment="Top">
-                <TextBlock
-                    Text="Copyright 2022, NBFC team"
-                    FontSize="10" />
-            </ui:Card>
-        </StackPanel>
-        <StackPanel
-            Orientation="Vertical"
-            Grid.Column="1">
-
-            <ui:CardAction
-                Icon="Money24"
-                Margin="10,0,10,0"
-                VerticalAlignment="Top">
-                <StackPanel>
+                </ui:Card>
+                <ui:Card
+                    Margin="0,10,0,0"
+                    Padding="20"
+                    VerticalAlignment="Top">
                     <TextBlock
-                        Margin="0,0,0,4"
-                        FontWeight="Medium"
-                        Text="Donate" />
-                    <TextBlock
-                        FontSize="11"
-                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
-                        Text="If you like this project, please consider donating">
-                        <Hyperlink
-                            NavigateUri="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=HUALCC9HY9MKC">
-                If you like my work, click here to buy me a beer :)
-            </Hyperlink>
-                    </TextBlock>
-                </StackPanel>
-            </ui:CardAction>
-            <ui:CardAction
-                Icon="Code24"
-                Margin="10,10,10,0"
-                VerticalAlignment="Top">
-                <StackPanel>
-                    <TextBlock
-                        Margin="0,0,0,4"
-                        FontWeight="Medium"
-                        Text="Contribute" />
-                    <TextBlock
-                        FontSize="11"
-                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
-                        Text="See our GitHub repo">
-                        <Hyperlink
-                            NavigateUri="https://github.com/klihan/nbfc.git" />
-
-                    </TextBlock>
-                </StackPanel>
-            </ui:CardAction>
-        </StackPanel>
-    </Grid>
+                        Text="Copyright 2023, NBFC team"
+                        FontSize="10" />
+                </ui:Card>
+            </StackPanel>
+            <StackPanel
+                Orientation="Vertical"
+                Margin="0,10,0,10"
+                MinWidth="500">
+                <ui:CardAction
+                    Icon="Money24"
+                    Margin="0,10,0,0"
+                    VerticalAlignment="Top"
+                    Click="DonateClickHandler">
+                    <StackPanel>
+                        <TextBlock
+                            Margin="0,0,0,4"
+                            FontWeight="Medium"
+                            Text="Donate" />
+                        <TextBlock
+                            FontSize="11"
+                            Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                            Text="If you like this project, please consider donating">
+                        </TextBlock>
+                    </StackPanel>
+                </ui:CardAction>
+                <ui:CardAction
+                    Icon="Code24"
+                    Margin="0,10,0,0"
+                    VerticalAlignment="Top"
+                    Click="ContributeClickHandler">
+                    <StackPanel>
+                        <TextBlock
+                            Margin="0,0,0,4"
+                            FontWeight="Medium"
+                            Text="Contribute" />
+                        <TextBlock
+                            FontSize="11"
+                            Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                            Text="See our GitHub repo">
+                        </TextBlock>
+                    </StackPanel>
+                </ui:CardAction>
+            </StackPanel>
+        </WrapPanel>
+    </ScrollViewer>
 </ui:UiPage>

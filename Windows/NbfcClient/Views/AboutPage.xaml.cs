@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog.Targets;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,18 @@ namespace NbfcClient.Views
         public AboutPage()
         {
             InitializeComponent();
+        }
+
+        private void ContributeClickHandler(object sender, RoutedEventArgs e)
+        {
+            String target = "https://github.com/championpeak87/nbfc.git";
+            System.Diagnostics.Process.Start(target);
+        }
+
+        private void DonateClickHandler(object sender, RoutedEventArgs e)
+        {
+            String target = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=HUALCC9HY9MKC";
+            System.Diagnostics.Process.Start(target);
         }
     }
 }

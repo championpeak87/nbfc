@@ -147,12 +147,6 @@
     <DesignData Include="DesignData\MainWindowViewModelData.xaml">
       <SubType>Designer</SubType>
     </DesignData>
-    <Compile Include="UserControls\ToolTipFanInfo.xaml.cs">
-      <DependentUpon>ToolTipFanInfo.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\TrayToolTip.xaml.cs">
-      <DependentUpon>TrayToolTip.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ValueConverters\AddOneConverter.cs" />
     <Compile Include="ValueConverters\BooleanToInverseConverter.cs" />
     <Compile Include="ValueConverters\BooleanToVisibilityConverter.cs" />
@@ -191,14 +185,6 @@
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="UserControls\FanController.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\ToolTipFanInfo.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\TrayToolTip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

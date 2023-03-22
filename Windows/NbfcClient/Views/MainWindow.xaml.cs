@@ -159,8 +159,6 @@ namespace NbfcClient.Windows
         {
             this.saveSizeTimer.Stop();
 
-            SettingsService.Settings.WindowHeight = lastHeight;
-            SettingsService.Settings.WindowWidth = lastWidth;
             SettingsService.Save();
         }
 

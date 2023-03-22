@@ -90,7 +90,7 @@
                                     <TextBlock
                                         FontSize="12"
                                         Foreground="{DynamicResource TextFillColorTertiaryBrush}"
-                                        Text="{Binding TemperatureSourceName, StringFormat=Temperature (\{0\}): }" />
+                                        Text="{Binding TemperatureSourceName, StringFormat=Temperature (\{0\}):}" />
                                     <TextBlock
                                         FontSize="12"
                                         Foreground="{DynamicResource TextFillColorTertiaryBrush}"
