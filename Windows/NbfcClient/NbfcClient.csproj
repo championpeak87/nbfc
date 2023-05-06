@@ -109,8 +109,8 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Wpf.Ui, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\WPF-UI.2.0.2\lib\net48\Wpf.Ui.dll</HintPath>
+    <Reference Include="Wpf.Ui, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\WPF-UI.2.0.3\lib\net48\Wpf.Ui.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +148,7 @@
       <SubType>Designer</SubType>
     </DesignData>
     <Compile Include="ValueConverters\AddOneConverter.cs" />
+    <Compile Include="ValueConverters\BooleanToStringConverter.cs" />
     <Compile Include="ValueConverters\BooleanToInverseConverter.cs" />
     <Compile Include="ValueConverters\BooleanToVisibilityConverter.cs" />
     <Compile Include="ValueConverters\ColorToBrushConverter.cs" />

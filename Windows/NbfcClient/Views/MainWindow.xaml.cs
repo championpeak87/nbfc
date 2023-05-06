@@ -1,11 +1,13 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
 using NbfcClient.Messages;
+using NbfcClient.ViewModels;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Threading;
 using Wpf.Ui.Common;
+using Wpf.Ui.Mvvm.Services;
 using SettingsService = StagWare.Settings.SettingsService<NbfcClient.AppSettings>;
 
 namespace NbfcClient.Windows
@@ -186,6 +188,11 @@ namespace NbfcClient.Windows
         {
             close = true;
             Close();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

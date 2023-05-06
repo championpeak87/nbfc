@@ -15,5 +15,8 @@ namespace NbfcClient
 
         [DefaultValue(false)]
         public bool CloseToTray { get; set; }
+
+        [DefaultValue(true)]
+        public bool ShowTrayIcon { get; set; }
     }
 }

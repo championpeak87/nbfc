@@ -44,10 +44,6 @@ namespace NbfcClient.ViewModels
             this.client.FanControlStatusChanged += Client_FanControlStatusChanged;
             Messenger.Default.Register<ReloadFanControlInfoMessage>(this, Refresh);
             Refresh(true);
-
-            IsServiceReadOnly = client.FanControlInfo.ReadOnly;
-            IsServiceEnabled = client.FanControlInfo.Enabled;
-            IsServiceDisabled = !client.FanControlInfo.Enabled;
         }
 
         #endregion
@@ -115,6 +111,12 @@ namespace NbfcClient.ViewModels
 
                     ServiceStateString = "UNKNOWN";
                 }
+
+                OnPropertyChanged("IsServiceEnabled");
+                OnPropertyChanged("IsServiceReadOnly");
+                OnPropertyChanged("IsServiceDisabled");
+                OnPropertyChanged("ServiceState");
+                OnPropertyChanged("ServiceStateString");
             }
         }
 
@@ -136,13 +138,27 @@ namespace NbfcClient.ViewModels
 
                 return this.serviceStateString;
             }
-            set { this.serviceStateString = value; OnPropertyChanged("ServiceStateString"); }
+            set
+            {
+                this.serviceStateString = value; OnPropertyChanged("IsServiceEnabled");
+                OnPropertyChanged("IsServiceReadOnly");
+                OnPropertyChanged("IsServiceDisabled");
+                OnPropertyChanged("ServiceState");
+                OnPropertyChanged("ServiceStateString");
+            }
         }
 
         public string SelectedConfig
         {
             get { return this.selectedConfig; }
-            private set { this.Set(ref this.selectedConfig, value); }
+            private set
+            {
+                this.Set(ref this.selectedConfig, value); OnPropertyChanged("IsServiceEnabled");
+                OnPropertyChanged("IsServiceReadOnly");
+                OnPropertyChanged("IsServiceDisabled");
+                OnPropertyChanged("ServiceState");
+                OnPropertyChanged("ServiceStateString");
+            }
         }
 
         public bool IsServiceDisabled
@@ -157,6 +173,12 @@ namespace NbfcClient.ViewModels
                     IsServiceReadOnly = false;
                     IsServiceEnabled = false;
                     Refresh(true);
+
+                    OnPropertyChanged("IsServiceEnabled");
+                    OnPropertyChanged("IsServiceReadOnly");
+                    OnPropertyChanged("IsServiceDisabled");
+                    OnPropertyChanged("ServiceState");
+                    OnPropertyChanged("ServiceStateString");
                 }
             }
         }
@@ -173,6 +195,12 @@ namespace NbfcClient.ViewModels
                     IsServiceDisabled = false;
                     IsServiceEnabled = false;
                     Refresh(true);
+
+                    OnPropertyChanged("IsServiceEnabled");
+                    OnPropertyChanged("IsServiceReadOnly");
+                    OnPropertyChanged("IsServiceDisabled");
+                    OnPropertyChanged("ServiceState");
+                    OnPropertyChanged("ServiceStateString");
                 }
             }
         }
@@ -189,6 +217,12 @@ namespace NbfcClient.ViewModels
                     IsServiceDisabled = false;
                     IsServiceReadOnly = false;
                     Refresh(true);
+
+                    OnPropertyChanged("IsServiceEnabled");
+                    OnPropertyChanged("IsServiceReadOnly");
+                    OnPropertyChanged("IsServiceDisabled");
+                    OnPropertyChanged("ServiceState");
+                    OnPropertyChanged("ServiceStateString");
                 }
             }
         }
@@ -196,19 +230,19 @@ namespace NbfcClient.ViewModels
         public int Temperature
         {
             get { return this.temperature; }
-            private set { this.Set(ref this.temperature, value); OnPropertyChanged("Temperature"); }
+            private set { this.Set(ref this.temperature, value); OnPropertyChanged(nameof(Temperature)); }
         }
 
         public string TemperatureSourceName
         {
             get { return this.temperatureSourceName; }
-            private set { this.Set(ref this.temperatureSourceName, value); }
+            private set { this.Set(ref this.temperatureSourceName, value); OnPropertyChanged(nameof(TemperatureSourceName)); }
         }
 
         public ObservableCollection<FanControllerViewModel> FanControllers
         {
             get { return this.fanControllers; }
-            private set { this.Set(ref this.fanControllers, value); }
+            private set { this.Set(ref this.fanControllers, value); OnPropertyChanged(nameof(FanControllers)); }
         }
 
 
@@ -263,12 +297,12 @@ namespace NbfcClient.ViewModels
 
         private void UpdateProperties(FanControlInfo info)
         {
-            Set(ref isServiceDisabled, !info.Enabled, nameof(IsServiceDisabled));
-            Set(ref isServiceReadOnly, (info.Enabled && info.ReadOnly), nameof(IsServiceReadOnly));
-            Set(ref isServiceEnabled, (info.Enabled && !info.ReadOnly), nameof(IsServiceEnabled));
-            Set(ref temperature, info.Temperature, nameof(Temperature));
-            Set(ref selectedConfig, info.SelectedConfig, nameof(SelectedConfig));
-            Set(ref temperatureSourceName, info.TemperatureSourceDisplayName, nameof(TemperatureSourceName));
+            IsServiceDisabled = !info.Enabled;
+            IsServiceReadOnly = (info.Enabled && info.ReadOnly);
+            IsServiceEnabled = info.Enabled;
+            Temperature = info.Temperature;
+            SelectedConfig = info.SelectedConfig;
+            TemperatureSourceName = info.TemperatureSourceDisplayName;
 
             if (info.FanStatus == null)
             {
@@ -324,8 +358,7 @@ namespace NbfcClient.ViewModels
 
         protected void OnPropertyChanged(string propertyName)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
 

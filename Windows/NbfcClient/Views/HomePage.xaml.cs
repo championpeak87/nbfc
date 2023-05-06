@@ -30,5 +30,10 @@ namespace NbfcClient.Views
         {
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var x = temp;
+        }
     }
 }

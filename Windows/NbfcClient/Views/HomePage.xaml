@@ -39,7 +39,7 @@
                     <ComboBox
                         x:Name="TaskbarStateComboBox"
                         MinWidth="120"
-                        SelectedIndex="{Binding ServiceState}">
+                        SelectedIndex="{Binding ServiceState, UpdateSourceTrigger=PropertyChanged}">
                         <ComboBoxItem
                             Content="Disabled" />
                         <ComboBoxItem
@@ -93,6 +93,7 @@
                                         Text="{Binding TemperatureSourceName, StringFormat=Temperature (\{0\}):}" />
                                     <TextBlock
                                         FontSize="12"
+                                        x:Name="temp"
                                         Foreground="{DynamicResource TextFillColorTertiaryBrush}"
                                         Text="{Binding Temperature, StringFormat=\{0\}°C}" />
                                 </StackPanel>

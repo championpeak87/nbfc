@@ -36,7 +36,8 @@
                         Text="Tray icon of NBFC will be present at all times" />
                 </StackPanel>
             </ui:CardControl.Header>
-            <ui:ToggleSwitch/>
+            <ui:ToggleSwitch
+                IsChecked="{Binding ShowTrayIcon}" />
         </ui:CardControl>
         <ui:CardControl
             Margin="0,8,0,0"

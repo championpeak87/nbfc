@@ -2,13 +2,14 @@
 using GalaSoft.MvvmLight.Messaging;
 using NbfcClient.Messages;
 using StagWare.Windows;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Media;
 using SettingsService = StagWare.Settings.SettingsService<NbfcClient.AppSettings>;
 
 namespace NbfcClient.ViewModels
 {
-    public class SettingsViewModel : ViewModelBase
+    public class SettingsViewModel : ViewModelBase, INotifyPropertyChanged
     {
         #region Constants
 
@@ -25,6 +26,7 @@ namespace NbfcClient.ViewModels
 
         private bool closeToTray;
         private bool autostart;
+        private bool showTrayIcon;
         private Color trayIconColor;
 
         #endregion
@@ -37,6 +39,7 @@ namespace NbfcClient.ViewModels
             autorun.Parameters = StartInTrayParameter;
             trayIconColor = SettingsService.Settings.TrayIconForegroundColor;
             closeToTray = SettingsService.Settings.CloseToTray;
+            showTrayIcon = SettingsService.Settings.ShowTrayIcon;
             autostart = autorun.Exists;
         }
 
@@ -69,6 +72,21 @@ namespace NbfcClient.ViewModels
             }
         }
 
+        public bool ShowTrayIcon
+        {
+            get { return this.showTrayIcon; }
+            set
+            {
+                if (Set(ref this.showTrayIcon, value))
+                {
+                    SettingsService.Settings.ShowTrayIcon = value;
+                    SettingsService.Save();
+
+                    OnPropertyChanged("ShowTrayIcon");
+                }
+            }
+        }
+
         public Color TrayIconColor
         {
             get { return this.trayIconColor; }
@@ -87,6 +105,15 @@ namespace NbfcClient.ViewModels
 
         public Color[] AvailableColors { get { return availableColors; } }
 
+        #endregion
+
+        #region OnPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         #endregion
     }
 }

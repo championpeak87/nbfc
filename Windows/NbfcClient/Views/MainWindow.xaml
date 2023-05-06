@@ -57,23 +57,31 @@
             Grid.Row="0"
             Grid.ColumnSpan="2"
             Icon="/NoteBookFanControl;component/fan.ico"
-            UseSnapLayout="True">
+            x:Name="titlebar">
             <ui:TitleBar.Tray>
                 <ui:NotifyIcon
+                    x:Name="notifyicon"
                     FocusOnLeftClick="True"
                     Icon="/NoteBookFanControl;component/fan.ico"
                     MenuOnRightClick="True"
                     TooltipText="Notebook Fan Control">
                     <ui:NotifyIcon.Menu>
                         <ContextMenu>
-                            <MenuItem Header="Status">
+                            <MenuItem
+                                Header="Status"
+                                DataContext="{Binding Main, Source={StaticResource ViewModelLocator}}">
                                 <MenuItem
-                                    Header="Disabled" IsCheckable="True"
+                                    Header="Disabled"
+                                    IsCheckable="True"
                                     IsChecked="{Binding IsServiceDisabled}" />
                                 <MenuItem
-                                    Header="Read-only" IsCheckable="True" IsChecked="{Binding IsServiceReadOnly}"/>
+                                    Header="Read-only"
+                                    IsCheckable="True"
+                                    IsChecked="{Binding IsServiceReadOnly}" />
                                 <MenuItem
-                                    Header="Enabled" IsCheckable="True" IsChecked="{Binding IsServiceEnabled}"/>
+                                    Header="Enabled"
+                                    IsCheckable="True"
+                                    IsChecked="{Binding IsServiceEnabled}" />
                             </MenuItem>
                             <Separator />
                             <MenuItem
@@ -94,12 +102,13 @@
                 <Grid
                     Height="20"
                     HorizontalAlignment="Left"
-                    Margin="170,0,0,0">
+                    Margin="170,0,0,0"
+                    DataContext="{Binding Main, Source={StaticResource ViewModelLocator}}">
                     <Border
                         CornerRadius="8,8,8,8"
                         Background="{DynamicResource ControlFillColorDefaultBrush}">
                         <TextBlock
-                            Text="{Binding ServiceStateString, UpdateSourceTrigger=PropertyChanged}"
+                            Text="{Binding ServiceStateString}"
                             Padding="10"
                             VerticalAlignment="Center"
                             FontSize="10"
@@ -109,6 +118,9 @@
                                     Color="{ui:ThemeResource SystemAccentColor}" />
                             </TextBlock.Foreground>
                         </TextBlock>
+                        
+                        
+
                     </Border>
                 </Grid>
             </ui:TitleBar.Header>
