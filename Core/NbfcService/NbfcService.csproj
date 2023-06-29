@@ -12,6 +12,21 @@
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>NbfcService.Program</StartupObject>
@@ -92,9 +107,69 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Tests\StagWare.FanControl.Configurations.Tests\StagWare.FanControl.Configurations.Tests.csproj">
+      <Project>{f25ef457-99fb-448e-bb9b-b618acaad51a}</Project>
+      <Name>StagWare.FanControl.Configurations.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Tests\StagWare.FanControl.Tests\StagWare.FanControl.Tests.csproj">
+      <Project>{75f46626-9b87-497e-8565-51a5c8798ed4}</Project>
+      <Name>StagWare.FanControl.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\OpenHardwareMonitor\OpenHardwareMonitorLib.csproj">
+      <Project>{b0397530-545a-471d-bb74-027ae456df1a}</Project>
+      <Name>OpenHardwareMonitorLib</Name>
+      <OutputItemType>Content</OutputItemType>
+      <OutputPath>bin\$(Configuration)\Plugins\</OutputPath>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\StagWare.Hardware.LPC\StagWare.Hardware.LPC.csproj">
+      <Project>{1d5d7c81-802f-46e0-913f-8519f157bc3c}</Project>
+      <Name>StagWare.Hardware.LPC</Name>
+      <OutputItemType>Content</OutputItemType>
+      <OutputPath>bin\$(Configuration)\Plugins\</OutputPath>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\StagWare.Hardware\StagWare.Hardware.csproj">
+      <Project>{66bae497-003d-4f8a-b26e-de5fa3361d38}</Project>
+      <Name>StagWare.Hardware</Name>
+      <OutputItemType>Content</OutputItemType>
+      <OutputPath>bin\$(Configuration)\Plugins\</OutputPath>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\StagWare.Plugins.CpuTemperatureMonitor\StagWare.Plugins.CpuTemperatureMonitor.csproj">
+      <Project>{281a8541-1845-44df-bbb9-3e0934c753a3}</Project>
+      <Name>StagWare.Plugins.CpuTemperatureMonitor</Name>
+      <OutputItemType>Content</OutputItemType>
+      <OutputPath>bin\$(Configuration)\Plugins\</OutputPath>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\StagWare.Plugins.ECWindows\StagWare.Plugins.ECWindows.csproj">
+      <Project>{6c6f4e15-fc36-4298-a7e9-83cd854bdfdb}</Project>
+      <Name>StagWare.Plugins.ECWindows</Name>
+      <OutputItemType>Content</OutputItemType>
+      <OutputPath>bin\$(Configuration)\Plugins\</OutputPath>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\StagWare.Plugins.FSTemperatureMonitor\StagWare.Plugins.FSTemperatureMonitor.csproj">
+      <Project>{11380afb-d406-4f4e-b260-2c892cd067b4}</Project>
+      <Name>StagWare.Plugins.FSTemperatureMonitor</Name>
+      <OutputItemType>Content</OutputItemType>
+      <OutputPath>bin\$(Configuration)\Plugins\</OutputPath>
+    </ProjectReference>
+    <ProjectReference Include="..\StagWare.BiosInfo\StagWare.BiosInfo.csproj">
+      <Project>{b45bbd0f-9345-4ec8-b70d-8369659da3b4}</Project>
+      <Name>StagWare.BiosInfo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StagWare.Configurations\StagWare.FanControl.Configurations.csproj">
+      <Project>{eb60ffbc-51f9-42f7-b22b-2200c3f0cb64}</Project>
+      <Name>StagWare.FanControl.Configurations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\StagWare.FanControl.Service\StagWare.FanControl.Service.csproj">
       <Project>{15b3e0d2-6217-493a-a690-158c497f5318}</Project>
       <Name>StagWare.FanControl.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StagWare.FanControl\StagWare.FanControl.csproj">
+      <Project>{12084b38-c1a2-414c-80a7-b8d02d6f5b84}</Project>
+      <Name>StagWare.FanControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StagWare.Settings\StagWare.Settings.csproj">
+      <Project>{44c3959a-3565-4fb6-9bf6-694b146cd032}</Project>
+      <Name>StagWare.Settings</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -107,6 +182,230 @@
     </None>
     <None Include="App.manifest" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 a x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configs\Acer Aspire 1410.xml" />
+    <Content Include="Configs\Acer Aspire 1810T.xml" />
+    <Content Include="Configs\Acer Aspire 1810TZ.xml" />
+    <Content Include="Configs\Acer Aspire 1825PTZ.xml" />
+    <Content Include="Configs\Acer Aspire 5738G.xml" />
+    <Content Include="Configs\Acer Aspire 5745G.xml" />
+    <Content Include="Configs\Acer Aspire 5749.xml" />
+    <Content Include="Configs\Acer Aspire 5930.xml" />
+    <Content Include="Configs\Acer Aspire 7551G.xml" />
+    <Content Include="Configs\Acer Aspire 7735.xml" />
+    <Content Include="Configs\Acer Aspire 7740G.xml" />
+    <Content Include="Configs\Acer Aspire 7741G.xml" />
+    <Content Include="Configs\Acer Aspire E1-522.xml" />
+    <Content Include="Configs\Acer Aspire E1-772.xml" />
+    <Content Include="Configs\Acer Aspire E5-471G.xml" />
+    <Content Include="Configs\Acer Aspire E5-475G.xml" />
+    <Content Include="Configs\Acer Aspire E5-575G.xml" />
+    <Content Include="Configs\Acer Aspire E5-731.xml" />
+    <Content Include="Configs\Acer Aspire LT-10Q.xml" />
+    <Content Include="Configs\Acer Aspire One AO531h.xml" />
+    <Content Include="Configs\Acer Aspire One AO751h.xml" />
+    <Content Include="Configs\Acer Aspire One AOA110.xml" />
+    <Content Include="Configs\Acer Aspire One AOA150.xml" />
+    <Content Include="Configs\Acer Aspire S3.xml" />
+    <Content Include="Configs\Acer Aspire S7-191.xml" />
+    <Content Include="Configs\Acer Aspire S7-391.xml" />
+    <Content Include="Configs\Acer Aspire V13.xml" />
+    <Content Include="Configs\Acer Aspire V3-371.xml" />
+    <Content Include="Configs\Acer Aspire V3-571G.xml" />
+    <Content Include="Configs\Acer Aspire V5-551.xml" />
+    <Content Include="Configs\Acer Aspire V5-572G.xml" />
+    <Content Include="Configs\Acer Aspire VN7-572G V15 Nitro BE.xml" />
+    <Content Include="Configs\Acer Aspire VN7-572G V15 Nitro.xml" />
+    <Content Include="Configs\Acer Aspire VN7-591G V15 Nitro BE.xml" />
+    <Content Include="Configs\Acer Aspire VN7-791G V17 Nitro BE.xml" />
+    <Content Include="Configs\Acer Aspire VN7-792G V17 Nitro BE.xml" />
+    <Content Include="Configs\Acer Aspire VN7-793G V17 Nitro BE.xml" />
+    <Content Include="Configs\Acer Extensa 5220.xml" />
+    <Content Include="Configs\Acer Extensa 5630Z.xml" />
+    <Content Include="Configs\Acer LT-10Q.xml" />
+    <Content Include="Configs\Acer Predator 17 G9-793-782K.xml" />
+    <Content Include="Configs\Acer Predator G3-572.xml" />
+    <Content Include="Configs\Acer TravelMate 7730G.xml" />
+    <Content Include="Configs\Asus F5SR.xml" />
+    <Content Include="Configs\Asus G53SX.xml" />
+    <Content Include="Configs\Asus K43SD.xml" />
+    <Content Include="Configs\Asus K43U.xml" />
+    <Content Include="Configs\Asus K46C.xml" />
+    <Content Include="Configs\Asus K501LX.xml" />
+    <Content Include="Configs\Asus K501UX.xml" />
+    <Content Include="Configs\Asus M52VA.xml" />
+    <Content Include="Configs\Asus N550JV.xml" />
+    <Content Include="Configs\Asus N550JX.xml" />
+    <Content Include="Configs\Asus N551JB.xml" />
+    <Content Include="Configs\Asus N56JR.xml" />
+    <Content Include="Configs\Asus N56VZ.xml" />
+    <Content Include="Configs\Asus ROG G501JW.xml" />
+    <Content Include="Configs\Asus ROG G751JL.xml" />
+    <Content Include="Configs\Asus ROG G751JT.xml" />
+    <Content Include="Configs\Asus ROG G751JY.xml" />
+    <Content Include="Configs\Asus ROG G752VS.xml" />
+    <Content Include="Configs\Asus ROG G752VT.xml" />
+    <Content Include="Configs\Asus ROG G752VY.xml" />
+    <Content Include="Configs\Asus ROG G75VX.xml" />
+    <Content Include="Configs\Asus ROG GL702VM.xml" />
+    <Content Include="Configs\Asus ROG GL702ZC.xml" />
+    <Content Include="Configs\Asus Transformer 3 Pro.xml" />
+    <Content Include="Configs\Asus Vivobook S400CA.xml" />
+    <Content Include="Configs\Asus Vivobook TP301UA.xml" />
+    <Content Include="Configs\ASUS Vivobook X580VD.xml" />
+    <Content Include="Configs\Asus X301A1.xml" />
+    <Content Include="Configs\Asus X540LA.xml" />
+    <Content Include="Configs\Asus Zenbook Flip UX360UAK.xml" />
+    <Content Include="Configs\Asus Zenbook Pro UX550VE.xml" />
+    <Content Include="Configs\Asus Zenbook UX21E.xml" />
+    <Content Include="Configs\Asus Zenbook UX301LA.xml" />
+    <Content Include="Configs\Asus Zenbook UX302LA.xml" />
+    <Content Include="Configs\Asus Zenbook UX310UA.xml" />
+    <Content Include="Configs\Asus Zenbook UX310UAK.xml" />
+    <Content Include="Configs\Asus Zenbook UX31A.xml" />
+    <Content Include="Configs\Asus Zenbook UX32A.xml" />
+    <Content Include="Configs\Asus Zenbook UX32LN.xml" />
+    <Content Include="Configs\Asus Zenbook UX32VD.xml" />
+    <Content Include="Configs\Asus Zenbook UX330UA.xml" />
+    <Content Include="Configs\Asus Zenbook UX410UQ.xml" />
+    <Content Include="Configs\Asus Zenbook UX430UA.xml" />
+    <Content Include="Configs\Asus Zenbook UX430UQ.xml" />
+    <Content Include="Configs\Asus Zenbook UX51VZA.xml" />
+    <Content Include="Configs\Asus Zenbook UX530U.xml" />
+    <Content Include="Configs\Dell Inspiron 7348.xml" />
+    <Content Include="Configs\Dell Inspiron 7375.xml" />
+    <Content Include="Configs\Dell Vostro 3350.xml" />
+    <Content Include="Configs\Dell XPS M1530.xml" />
+    <Content Include="Configs\Fujitsu ESPRIMO Mobile V5505.xml" />
+    <Content Include="Configs\Gateway AOA110.xml" />
+    <Content Include="Configs\Gateway AOA150.xml" />
+    <Content Include="Configs\Gateway LT31.xml" />
+    <Content Include="Configs\Gigabyte AERO 14KV8.xml" />
+    <Content Include="Configs\Gigabyte p35w v3.xml" />
+    <Content Include="Configs\HP 15-BW00x.xml" />
+    <Content Include="Configs\HP Compaq 15-s103tx.xml" />
+    <Content Include="Configs\HP Compaq 615.xml" />
+    <Content Include="Configs\HP Compaq 625.xml" />
+    <Content Include="Configs\HP Compaq 6530b.xml" />
+    <Content Include="Configs\HP Compaq 6735s Turion X2 RM-72.xml" />
+    <Content Include="Configs\HP Compaq 8710p.xml" />
+    <Content Include="Configs\HP Compaq nw9440.xml" />
+    <Content Include="Configs\HP Compaq Presario CQ40 Turion X2 RM-74.xml" />
+    <Content Include="Configs\HP EliteBook 2560p.xml" />
+    <Content Include="Configs\HP EliteBook 2570p.xml" />
+    <Content Include="Configs\HP EliteBook 2760p.xml" />
+    <Content Include="Configs\HP EliteBook 840 G2.xml" />
+    <Content Include="Configs\HP EliteBook 8560p.xml" />
+    <Content Include="Configs\HP EliteBook 8560w.xml" />
+    <Content Include="Configs\HP EliteBook 8760w.xml" />
+    <Content Include="Configs\HP EliteBook Folio 1040 G1.xml" />
+    <Content Include="Configs\HP EliteBook Folio 9470m.xml" />
+    <Content Include="Configs\HP EliteBook Folio 9470m_i5-3427u_bios-F.66.xml" />
+    <Content Include="Configs\HP ENVY m6 1206dx.xml" />
+    <Content Include="Configs\HP ENVY m6 Sleekbook.xml" />
+    <Content Include="Configs\HP ENVY m6-1254eo.xml" />
+    <Content Include="Configs\HP ENVY x360 Convertible 13-ag0xxx.xml" />
+    <Content Include="Configs\HP ENVY x360 Convertible 15-cn0xxx.xml" />
+    <Content Include="Configs\HP Laptop 14-cm0xxx.xml" />
+    <Content Include="Configs\HP Laptop 14-dk0xxx.xml" />
+    <Content Include="Configs\HP Laptop 17-by1xxx.xml" />
+    <Content Include="Configs\HP Laptop 17-ca1xxx.xml" />
+    <Content Include="Configs\HP Notebook 15-ba010ng.xml" />
+    <Content Include="Configs\HP OMEN Notebook PC 15.xml" />
+    <Content Include="Configs\HP Pavilion 14-v066br.xml" />
+    <Content Include="Configs\HP Pavilion 17-ab240nd.xml" />
+    <Content Include="Configs\HP Pavilion dv6 6190.xml" />
+    <Content Include="Configs\HP Pavilion dv6.xml" />
+    <Content Include="Configs\HP Pavilion HDX18.xml" />
+    <Content Include="Configs\HP Pavilion x360 Convertible 14-dh1xxx.xml" />
+    <Content Include="Configs\HP Pavilion x360 Convertible 15-br0xx.xml" />
+    <Content Include="Configs\HP ProBook 430 G1.xml" />
+    <Content Include="Configs\HP ProBook 440 G3.xml" />
+    <Content Include="Configs\HP ProBook 450 G1.xml" />
+    <Content Include="Configs\HP ProBook 4520s.xml" />
+    <Content Include="Configs\HP ProBook 4530s.xml" />
+    <Content Include="Configs\HP ProBook 4535s.xml" />
+    <Content Include="Configs\HP ProBook 4540s.xml" />
+    <Content Include="Configs\HP ProBook 4710s.xml" />
+    <Content Include="Configs\HP ProBook 4720s.xml" />
+    <Content Include="Configs\HP ProBook 5330m.xml" />
+    <Content Include="Configs\HP ProBook 6455b.xml" />
+    <Content Include="Configs\HP ProBook 6460b.xml" />
+    <Content Include="Configs\HP ProBook 6465b.xml" />
+    <Content Include="Configs\HP ProBook 650 G1.xml" />
+    <Content Include="Configs\HP ProBook 650 G2.xml" />
+    <Content Include="Configs\HP ProBook 6550b.xml" />
+    <Content Include="Configs\HP ProBook 6560b.xml" />
+    <Content Include="Configs\HP Spectre x360 Convertible 13-ae0xx.xml" />
+    <Content Include="Configs\HP Spectre x360 Convertible 15-ch0xx.xml" />
+    <Content Include="Configs\HP ZBook 15 G3.xml" />
+    <Content Include="Configs\HP ZBook 15.xml" />
+    <Content Include="Configs\HP ZBook Studio G3.xml" />
+    <Content Include="Configs\Lenovo Ideapad 500S-13ISK.xml" />
+    <Content Include="Configs\Lenovo Ideapad 500S-14ISK.xml" />
+    <Content Include="Configs\Lenovo Ideapad 510s.xml" />
+    <Content Include="Configs\Lenovo Ideapad 710S.xml" />
+    <Content Include="Configs\Lenovo Ideapad U160.xml" />
+    <Content Include="Configs\Lenovo Ideapad U330p.xml" />
+    <Content Include="Configs\Lenovo Ideapad U430p.xml" />
+    <Content Include="Configs\Lenovo IdeaPad Y580.xml" />
+    <Content Include="Configs\Lenovo ThinkPad 13.xml" />
+    <Content Include="Configs\Lenovo ThinkPad Edge E520.xml" />
+    <Content Include="Configs\Lenovo ThinkPad Helix.xml" />
+    <Content Include="Configs\Lenovo ThinkPad L380 Yoga.xml" />
+    <Content Include="Configs\Lenovo ThinkPad L390 i7-8565U.xml" />
+    <Content Include="Configs\Lenovo Thinkpad L530.xml" />
+    <Content Include="Configs\Lenovo ThinkPad T430s.xml" />
+    <Content Include="Configs\Lenovo ThinkPad T440s.xml" />
+    <Content Include="Configs\Lenovo ThinkPad T540p.xml" />
+    <Content Include="Configs\Lenovo ThinkPad x121e.xml" />
+    <Content Include="Configs\Lenovo ThinkPad x220i.xml" />
+    <Content Include="Configs\Lenovo ThinkPad x230.xml" />
+    <Content Include="Configs\Lenovo U31-70.xml" />
+    <Content Include="Configs\Lenovo U41-70.xml" />
+    <Content Include="Configs\Lenovo V330-IKB%2881AX%29.xml" />
+    <Content Include="Configs\Lenovo V580.xml" />
+    <Content Include="Configs\Lenovo Yoga 11s.xml" />
+    <Content Include="Configs\Lenovo Yoga 13 2191.xml" />
+    <Content Include="Configs\Lenovo Yoga 2 13.xml" />
+    <Content Include="Configs\Lenovo Yoga 3 14.xml" />
+    <Content Include="Configs\Lenovo Yoga 510.xml" />
+    <Content Include="Configs\Lenovo Yoga 710.xml" />
+    <Content Include="Configs\Medion Akoya P6612.xml" />
+    <Content Include="Configs\Medion Akoya P6630.xml" />
+    <Content Include="Configs\Packard Bell AOA110.xml" />
+    <Content Include="Configs\Packard Bell AOA150.xml" />
+    <Content Include="Configs\Packard Bell DOA150.xml" />
+    <Content Include="Configs\Packard Bell DOTMA.xml" />
+    <Content Include="Configs\Packard Bell DOTMU.xml" />
+    <Content Include="Configs\Packard Bell DOTVR46.xml" />
+    <Content Include="Configs\Packard Bell Easynote TJ65.xml" />
+    <Content Include="Configs\Packard Bell ENBFT.xml" />
+    <Content Include="Configs\Razer Blade 14 2017.xml" />
+    <Content Include="Configs\RedmiBook 14 %28TM1814%29.xml" />
+    <Content Include="Configs\Sony Vaio SVE1711.xml" />
+    <Content Include="Configs\Sony Vaio SVE1713Y1E.xml" />
+    <Content Include="Configs\Sony Vaio SVF13N190X.xml" />
+    <Content Include="Configs\Sony Vaio SVF14N1C5E.xml" />
+    <Content Include="Configs\Sony Vaio SVT1312M1ES.xml" />
+    <Content Include="Configs\Sony Vaio VPCF12S1E.xml" />
+    <Content Include="Configs\Toshiba Satellite L740.xml" />
+    <Content Include="Configs\Toshiba Satellite L745.xml" />
+    <Content Include="Configs\Vestel Smartboard Series-14XXXX.xml" />
+    <Content Include="Configs\Xiaomi Mi Book %28TM1613, TM1703%29.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">
@@ -121,6 +420,7 @@
     <Copy Condition=" '$(Configuration)'=='ReleaseLinux' " SourceFiles="@(ServiceFiles);$(TargetPath);$(TargetPath).config" DestinationFolder="$(ProjectDir)\..\..\Linux\bin\Release\" ContinueOnError="true" />
     <Copy Condition=" '$(Configuration)'=='ReleaseLinux' " SourceFiles="@(Configs)" DestinationFolder="$(ProjectDir)\..\..\Linux\bin\Release\Configs\" ContinueOnError="true" />
     <Copy Condition=" '$(Configuration)'=='ReleaseLinux' " SourceFiles="@(Scripts)" DestinationFolder="$(ProjectDir)\..\..\Linux\bin\Release\" ContinueOnError="true" />
+    <Copy SourceFiles="@(Configs)" DestinationFolder="bin\ReleaseWindows\Configs\" ContinueOnError="true" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

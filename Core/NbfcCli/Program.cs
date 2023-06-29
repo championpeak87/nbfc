@@ -1,6 +1,7 @@
 ﻿using clipr;
 using NbfcCli.CommandLineOptions;
-using NbfcCli.NbfcService;
+using NbfcClient.NbfcService;
+using StagWare.FanControl.Service;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -65,48 +66,48 @@ namespace NbfcCli
 
         private static void PrintStatus(StatusVerb verb)
         {
-            FanControlInfo info = GetFanControlInfo();
+            //StagWare.FanControl.Service.FanControlInfo info = GetFanControlInfo(client);
 
-            if (info == null)
-            {
-                return;
-            }
+            //if (info == null)
+            //{
+            //    return;
+            //}
 
-            bool printAll = verb.All || (!verb.Service && (verb.Fan == null));
+            //bool printAll = verb.All || (!verb.Service && (verb.Fan == null));
 
-            if (printAll || verb.Service)
-            {
-                PrintServiceStatus(info);
-            }
+            //if (printAll || verb.Service)
+            //{
+            //    PrintServiceStatus(info);
+            //}
 
-            if (printAll || verb.Fan != null)
-            {
-                if (info.FanStatus == null)
-                {
-                    Console.Error.WriteLine("Could not get fan info because the service is disabled");
-                }
-                else if (verb.Fan != null && verb.Fan.Count > 0)
-                {
-                    foreach (int idx in verb.Fan)
-                    {
-                        if (idx < info.FanStatus.Length)
-                        {
-                            PrintFanStatus(info.FanStatus[idx]);
-                        }
-                        else
-                        {
-                            Console.Error.WriteLine(string.Format("A fan with index {0} does not exist", idx));
-                        }
-                    }
-                }
-                else
-                {
-                    foreach (FanStatus status in info.FanStatus)
-                    {
-                        PrintFanStatus(status);
-                    }
-                }
-            }
+            //if (printAll || verb.Fan != null)
+            //{
+            //    if (info.FanStatus == null)
+            //    {
+            //        Console.Error.WriteLine("Could not get fan info because the service is disabled");
+            //    }
+            //    else if (verb.Fan != null && verb.Fan.Count > 0)
+            //    {
+            //        foreach (int idx in verb.Fan)
+            //        {
+            //            if (idx < info.FanStatus.Length)
+            //            {
+            //                PrintFanStatus(info.FanStatus[idx]);
+            //            }
+            //            else
+            //            {
+            //                Console.Error.WriteLine(string.Format("A fan with index {0} does not exist", idx));
+            //            }
+            //        }
+            //    }
+            //    else
+            //    {
+            //        foreach (StagWare.FanControl.Service.FanStatus status in info.FanStatus)
+            //        {
+            //            PrintFanStatus(status);
+            //        }
+            //    }
+            //}
         }
 
         private static void ConfigureService(ConfigVerb verb)
@@ -184,14 +185,14 @@ namespace NbfcCli
             CallServiceMethod(client => client.SetConfig(configName));
         }
 
-        private static FanControlInfo GetFanControlInfo()
+        private static StagWare.FanControl.Service.FanControlInfo GetFanControlInfo(FanControlServiceClient client)
         {
-            FanControlInfo info = null;
+            StagWare.FanControl.Service.FanControlInfo info = null;
 
-            CallServiceMethod(client =>
-            {
-                info = client.GetFanControlInfo();
-            });
+            //CallServiceMethod(client =>
+            //{
+            //    info = client.GetFanControlInfo();
+            //});
 
             return info;
         }
@@ -228,7 +229,7 @@ namespace NbfcCli
             }
         }
 
-        private static void PrintServiceStatus(FanControlInfo info)
+        private static void PrintServiceStatus(StagWare.FanControl.Service.FanControlInfo info)
         {
             var sb = new StringBuilder();
             sb.AppendFormat("Service enabled\t\t: {0}", info.Enabled);
@@ -243,7 +244,7 @@ namespace NbfcCli
             Console.WriteLine(sb.ToString());
         }
 
-        private static void PrintFanStatus(FanStatus status)
+        private static void PrintFanStatus(StagWare.FanControl.Service.FanStatus status)
         {
             var sb = new StringBuilder();
             sb.AppendFormat("Fan display name\t: {0}", status.FanDisplayName);

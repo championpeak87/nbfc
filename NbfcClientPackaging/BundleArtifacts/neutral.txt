@@ -1,0 +1,6 @@
+MainPackage=C:\Users\kliha\Source\Repos\nbfc\NbfcClientPackaging\bin\AnyCPU\Release\NbfcClientPackaging_2.0.95.0_AnyCPU.appx
+SymbolPackage=C:\Users\kliha\Source\Repos\nbfc\NbfcClientPackaging\obj\Release\Symbols\NbfcClientPackaging_2.0.95.0_AnyCPU.appxsym
+ResourcePack=C:\Users\kliha\Source\Repos\nbfc\NbfcClientPackaging\bin\AnyCPU\Release\NbfcClientPackaging_2.0.95.0_scale-100.appx
+ResourcePack=C:\Users\kliha\Source\Repos\nbfc\NbfcClientPackaging\bin\AnyCPU\Release\NbfcClientPackaging_2.0.95.0_scale-125.appx
+ResourcePack=C:\Users\kliha\Source\Repos\nbfc\NbfcClientPackaging\bin\AnyCPU\Release\NbfcClientPackaging_2.0.95.0_scale-150.appx
+ResourcePack=C:\Users\kliha\Source\Repos\nbfc\NbfcClientPackaging\bin\AnyCPU\Release\NbfcClientPackaging_2.0.95.0_scale-400.appx

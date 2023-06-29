@@ -4,17 +4,17 @@
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-  xmlns:iot="http://schemas.microsoft.com/appx/manifest/iot/windows10"
-  IgnorableNamespaces="uap rescap iot">
+  xmlns:desktop6="http://schemas.microsoft.com/appx/manifest/desktop/windows10/6"
+  IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="785040f7-16ca-4a4b-8f6d-fb588d064c94"
-    Publisher="CN=kliha"
-    Version="2.0.0.0" />
+    Name="7348209a-b257-4357-8dff-3e2df6219b1a"
+    Publisher="CN=championpeak87"
+    Version="2.0.95.0" />
 
   <Properties>
-    <DisplayName>Notebook Fan Control</DisplayName>
-    <PublisherDisplayName>kliha</PublisherDisplayName>
+    <DisplayName>NoteBook FanControl</DisplayName>
+    <PublisherDisplayName>championpeak87</PublisherDisplayName>
     <Logo>Images\StoreLogo.png</Logo>
   </Properties>
 
@@ -32,26 +32,31 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="Notebook Fan Control"
+        DisplayName="NoteBook FanControl"
         Description="NBFC is a cross-platform fan control service for notebooks. It comes with a powerful configuration system, which allows to adjust it to many different notebook models."
         BackgroundColor="transparent"
         Square150x150Logo="Images\Square150x150Logo.png"
         Square44x44Logo="Images\Square44x44Logo.png">
-        <uap:DefaultTile Wide310x150Logo="Images\Wide310x150Logo.png" />
+        <uap:DefaultTile Wide310x150Logo="Images\Wide310x150Logo.png"  Square71x71Logo="Images\SmallTile.png" Square310x310Logo="Images\LargeTile.png"/>
         <uap:SplashScreen Image="Images\SplashScreen.png" />
-        <uap:InitialRotationPreference>
-          <uap:Rotation Preference="landscape"/>
-          <uap:Rotation Preference="portrait"/>
-          <uap:Rotation Preference="landscapeFlipped"/>
-          <uap:Rotation Preference="portraitFlipped"/></uap:InitialRotationPreference>
       </uap:VisualElements>
+      <Extensions>
+        <desktop6:Extension Category="windows.service" Executable="NbfcService\NbfcService.exe" EntryPoint="Windows.FullTrustApplication" xmlns:a="http://schemas.microsoft.com/appx/manifest/uap/windows10/10">
+          <desktop6:Service
+    Name = "NbfcService"
+    StartupType = "auto"
+    StartAccount = "localSystem" >
+          </desktop6:Service>
+          
+        </desktop6:Extension>
+      </Extensions>
     </Application>
   </Applications>
 
   <Capabilities>
+    <Capability Name="internetClient" />
     <rescap:Capability Name="runFullTrust" />
-    <iot:Capability Name="systemManagement"/>
-    <iot:Capability Name="lowLevelDevices"/>
-    <DeviceCapability Name="lowLevel"/>
+    <rescap:Capability Name="packagedServices"/>
+    <rescap:Capability Name="localSystemServices"/>
   </Capabilities>
 </Package>

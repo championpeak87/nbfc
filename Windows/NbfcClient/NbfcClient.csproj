@@ -16,7 +16,6 @@
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -26,9 +25,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugWindows|AnyCPU' ">
@@ -36,7 +36,6 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -46,11 +45,11 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <OutputPath>$(ProjectDir)..\..\Core\NbfcService\bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>NbfcClient.App</StartupObject>
@@ -62,6 +61,18 @@
   <PropertyGroup />
   <PropertyGroup>
     <ApplicationManifest>App.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>FCEF4905B57C5F259246F89C83639FD0520519F1</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>NbfcClient_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
@@ -93,6 +104,7 @@
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -244,6 +256,7 @@
     <None Include="App.manifest">
       <SubType>Designer</SubType>
     </None>
+    <None Include="NbfcClient_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <AppDesigner Include="Properties\" />
     <None Include="Service References\NbfcService\Arrays.xsd">
@@ -307,8 +320,19 @@
       <Project>{44c3959a-3565-4fb6-9bf6-694b146cd032}</Project>
       <Name>StagWare.Settings</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Core\NbfcService\NbfcService.csproj">
+      <Project>{820ABB59-7F86-4D7F-89C9-8F7DA013D992}</Project>
+      <Name>NbfcService</Name>
+      <OutputPath>bin\$(Configuration)\Plugins\</OutputPath>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+      xcopy /y "$(ProjectDir)..\..\Core\NbfcService\bin\$(Configuration)\*" "$(OutputPath)"
+      xcopy /y "$(ProjectDir)..\..\Core\NbfcService\bin\$(Configuration)\Plugins\*" "$(OutputPath)\Plugins\"
+    </PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

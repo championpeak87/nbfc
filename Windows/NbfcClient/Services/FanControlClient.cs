@@ -2,6 +2,7 @@
 using NbfcClient.NbfcService;
 using NLog;
 using System;
+using System.ServiceProcess;
 using System.Windows.Threading;
 
 namespace NbfcClient.Services
